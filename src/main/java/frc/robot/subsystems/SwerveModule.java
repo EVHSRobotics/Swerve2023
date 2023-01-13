@@ -3,6 +3,11 @@ package frc.robot.subsystems;
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -22,8 +27,8 @@ public class SwerveModule {
   private static final double kModuleMaxAngularAcceleration =
       2 * Math.PI; // radians per second squared
 
-  private final MotorController m_driveMotor;
-  private final MotorController m_turningMotor;
+  private final WPI_TalonFX m_driveMotor;
+  private final WPI_TalonFX m_turningMotor;
 
   private final Encoder m_driveEncoder;
   private final Encoder m_turningEncoder;
@@ -61,8 +66,8 @@ public class SwerveModule {
       int driveEncoderChannelB,
       int turningEncoderChannelA,
       int turningEncoderChannelB) {
-    m_driveMotor = new PWMSparkMax(driveMotorChannel);
-    m_turningMotor = new PWMSparkMax(turningMotorChannel);
+    m_driveMotor = new WPI_TalonFX(driveMotorChannel);
+    m_turningMotor = new WPI_TalonFX(turningMotorChannel);
 
     m_driveEncoder = new Encoder(driveEncoderChannelA, driveEncoderChannelB);
     m_turningEncoder = new Encoder(turningEncoderChannelA, turningEncoderChannelB);
