@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.JoyDrive;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.DrivetrainSDS;
 // import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +24,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain sDrive = new Drivetrain();
+  private final DrivetrainSDS sdsDrive = new DrivetrainSDS();
   private CommandXboxController driveController;
   private JoyDrive drive;
   // Replace with CommandPS4Controller or CommandJoystick if needed
