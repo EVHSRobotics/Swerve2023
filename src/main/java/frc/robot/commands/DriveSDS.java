@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSDS;
 
@@ -10,15 +12,11 @@ import java.util.function.DoubleSupplier;
 public class DriveSDS extends CommandBase {
     private final DrivetrainSDS m_drivetrainSubsystem;
 
-    private final DoubleSupplier m_translationXSupplier;
-    private final DoubleSupplier m_translationYSupplier;
-    private final DoubleSupplier m_rotationSupplier;
+    private final XboxController controller;
 
-    public DriveSDS(DrivetrainSDS drivetrainSubsystem, DoubleSupplier translationXSupplier, DoubleSupplier translationYSupplier, DoubleSupplier rotationSupplier) {
+    public DriveSDS(DrivetrainSDS drivetrainSubsystem, XboxController controller) {
         this.m_drivetrainSubsystem = drivetrainSubsystem;
-        this.m_translationXSupplier = translationXSupplier;
-        this.m_translationYSupplier = translationYSupplier;
-        this.m_rotationSupplier = rotationSupplier;
+        this.controller = controller;
 
         addRequirements(drivetrainSubsystem);
     }
@@ -28,10 +26,10 @@ public class DriveSDS extends CommandBase {
         // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
         m_drivetrainSubsystem.drive(
                 ChassisSpeeds.fromFieldRelativeSpeeds(
-                        m_translationXSupplier.getAsDouble(),
-                        m_translationYSupplier.getAsDouble(),
-                        m_rotationSupplier.getAsDouble(),
-                        m_drivetrainSubsystem.getGyroscopeRotation()
+                    controller.getLeftY() * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                    controller.getLeftX() * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                    controller.getRightX() * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                    m_drivetrainSubsystem.getGyroscopeRotation()
                 )
         );
     }

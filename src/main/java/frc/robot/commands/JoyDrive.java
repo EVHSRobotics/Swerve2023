@@ -14,7 +14,7 @@ import edu.wpi.first.math.MathUtil;
 public class JoyDrive extends CommandBase {
 
 
-  private CommandXboxController m_controller;
+  private XboxController m_controller;
   private Drivetrain m_swerve;
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
@@ -25,7 +25,7 @@ public class JoyDrive extends CommandBase {
 
 
   /** Creates a new JoyDrive. */
-  public JoyDrive(CommandXboxController m_Controller, Drivetrain m_swerve) {
+  public JoyDrive(XboxController m_Controller, Drivetrain m_swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_controller = m_Controller;
     this.m_swerve = m_swerve;
