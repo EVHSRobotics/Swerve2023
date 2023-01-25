@@ -5,8 +5,10 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.DriveSDS;
 import frc.robot.commands.JoyDrive;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.DrivetrainSDS;
 // import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,8 +25,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain sDrive = new Drivetrain();
-  private CommandXboxController driveController;
+  private final DrivetrainSDS sdsDrive = new DrivetrainSDS();
+  private XboxController driveController;
   private JoyDrive drive;
+  private DriveSDS driveSDS;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   // private final CommandXboxController m_driverController =
       // new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -32,8 +36,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    driveController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    driveController = new XboxController(OperatorConstants.kDriverControllerPort);
     drive = new JoyDrive(driveController, sDrive);
+    driveSDS = new DriveSDS(sdsDrive, driveController);
     configureBindings();
   }
 
