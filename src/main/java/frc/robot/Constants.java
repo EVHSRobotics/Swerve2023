@@ -16,22 +16,22 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
-  public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0;
-  public static final double DRIVETRAIN_WHEELBASE_METERS = 0;
+  public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.6;
+  public static final double DRIVETRAIN_WHEELBASE_METERS = 0.6;
 public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 4;
 public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 5;
 public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 50;
-public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 0;
+public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 4.99;
 public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 3;
 public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 1;
 public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 52;
-public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 0;
+public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 5;
 public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 6;
 public static final int BACK_LEFT_MODULE_STEER_MOTOR = 7;
 public static final int BACK_LEFT_MODULE_STEER_ENCODER = 53;
-public static final double BACK_LEFT_MODULE_STEER_OFFSET = 0;
+public static final double BACK_LEFT_MODULE_STEER_OFFSET = 0.6139;
 public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 8;
 public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 2;
 public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 51;
-public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 0;
+public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 3.9;
 }
