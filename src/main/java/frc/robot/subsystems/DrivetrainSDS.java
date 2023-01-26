@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.kauailabs.navx.frc.AHRS;
 import com.kauailabs.navx.frc.AHRS.SerialDataType;
@@ -30,6 +33,7 @@ public class DrivetrainSDS extends SubsystemBase {
    * This can be reduced to cap the robot's maximum speed. Typically, this is useful during initial testing of the robot.
    */
   public static final double MAX_VOLTAGE = 12.0;
+  private CANCoder bl, br, fr, fl;
   // FIXME Measure the drivetrain's maximum velocity or calculate the theoretical.
   //  The formula for calculating the theoretical maximum velocity is:
   //   <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> * pi
@@ -77,12 +81,16 @@ public class DrivetrainSDS extends SubsystemBase {
   private final SwerveModule m_frontRightModule;
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
-
+  private final WPI_TalonFX motor_bl, motor_br, motor_fl, motor_fr;
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
   public DrivetrainSDS() {
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
+    br = new CANCoder(Constants.BACK_RIGHT_MODULE_STEER_ENCODER);
+    bl = new CANCoder(Constants.BACK_LEFT_MODULE_STEER_ENCODER);
+    fl = new CANCoder(Constants.FRONT_LEFT_MODULE_STEER_ENCODER);
+    fr = new CANCoder(Constants.FRONT_RIGHT_MODULE_STEER_ENCODER);
     // There are 4 methods you can call to create your swerve modules.
     // The method you use depends on what motors you are using.
     //
@@ -106,6 +114,15 @@ public class DrivetrainSDS extends SubsystemBase {
     //  tab.getLayout("Front Left Module", BuiltInLayouts.kList)
 //     .withSize(2, 4)
 //     .withPosition(0, 0)
+
+motor_bl = new WPI_TalonFX(Constants.BACK_LEFT_MODULE_DRIVE_MOTOR);
+motor_br = new WPI_TalonFX(Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR);
+motor_fl = new WPI_TalonFX(Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR);
+motor_fr = new WPI_TalonFX(Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR);
+motor_bl.setNeutralMode(NeutralMode.Coast);
+motor_br.setNeutralMode(NeutralMode.Coast);
+motor_fl.setNeutralMode(NeutralMode.Coast);
+motor_fr.setNeutralMode(NeutralMode.Coast);
     m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
           
@@ -188,7 +205,15 @@ public class DrivetrainSDS extends SubsystemBase {
     SmartDashboard.putNumber("Front Left", m_frontLeftModule.getSteerAngle());
     SmartDashboard.putNumber("Bottom Left", m_backLeftModule.getSteerAngle());
     SmartDashboard.putNumber("Bottom Right", m_backRightModule.getSteerAngle());
-    SmartDashboard.putNumber("Gyro Angle", m_navx.getAngle());
+    SmartDashboard.putNumber("Front Right Motor", m_frontRightModule.getDriveVelocity());
+    SmartDashboard.putNumber("Front Left Motor", m_frontLeftModule.getDriveVelocity());
+    SmartDashboard.putNumber("Bottom Left Motor", m_backLeftModule.getDriveVelocity());
+    SmartDashboard.putNumber("Bottom Right Motor", m_backRightModule.getDriveVelocity());
+    SmartDashboard.putNumber("Front Right Cancoder", fr.getAbsolutePosition());
+    SmartDashboard.putNumber("Front Left Cancoder", fl.getAbsolutePosition());
+    SmartDashboard.putNumber("Bottom Left Cancoder", bl.getAbsolutePosition());
+    SmartDashboard.putNumber("Bottom Right Cancoder", br.getAbsolutePosition());
+    SmartDashboard.putNumber("Gyro Angle", getGyroscopeRotation().getDegrees());
     SmartDashboard.updateValues();
 }
 }

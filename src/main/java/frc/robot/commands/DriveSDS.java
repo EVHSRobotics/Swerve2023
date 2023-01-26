@@ -13,7 +13,6 @@ public class DriveSDS extends CommandBase {
     private final DrivetrainSDS m_drivetrainSubsystem;
 
     private final XboxController controller;
-
     public DriveSDS(DrivetrainSDS drivetrainSubsystem, XboxController controller) {
         this.m_drivetrainSubsystem = drivetrainSubsystem;
         this.controller = controller;
@@ -26,9 +25,9 @@ public class DriveSDS extends CommandBase {
         // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
         m_drivetrainSubsystem.drive(
                 ChassisSpeeds.fromFieldRelativeSpeeds(
-                    controller.getLeftY() * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
-                    controller.getLeftX() * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
-                    controller.getRightX() * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                    ((Math.abs(controller.getLeftY()) > 0.1) ? controller.getLeftY() : 0) * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                    ((Math.abs(controller.getLeftX()) > 0.1) ? controller.getLeftX() : 0) * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                    ((Math.abs(controller.getRightX()) > 0.1) ? controller.getRightX() : 0) * DrivetrainSDS.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
                     m_drivetrainSubsystem.getGyroscopeRotation()
                 )
         );
