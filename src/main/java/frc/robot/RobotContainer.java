@@ -67,7 +67,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command[] getTeleCommand() {
-    Command[] ret = {driveSDS};
+    Command[] ret = {drive};
     return ret;
     // An example command will be run in autonomous
     // return Autos.exampleAuto(m_exampleSubsystem);

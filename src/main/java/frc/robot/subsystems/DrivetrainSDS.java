@@ -81,7 +81,7 @@ public class DrivetrainSDS extends SubsystemBase {
   private final SwerveModule m_frontRightModule;
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
-  private final WPI_TalonFX motor_bl, motor_br, motor_fl, motor_fr;
+  private final WPI_TalonFX motor_bl, motor_br, motor_fl, motor_fr, turn_bl, turn_br, turn_fl, turn_fr;
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
   public DrivetrainSDS() {
@@ -119,11 +119,24 @@ motor_bl = new WPI_TalonFX(Constants.BACK_LEFT_MODULE_DRIVE_MOTOR);
 motor_br = new WPI_TalonFX(Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR);
 motor_fl = new WPI_TalonFX(Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR);
 motor_fr = new WPI_TalonFX(Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR);
-motor_bl.setNeutralMode(NeutralMode.Coast);
-motor_br.setNeutralMode(NeutralMode.Coast);
-motor_fl.setNeutralMode(NeutralMode.Coast);
-motor_fr.setNeutralMode(NeutralMode.Coast);
-    m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
+turn_bl = new WPI_TalonFX(Constants.BACK_LEFT_MODULE_STEER_MOTOR);
+turn_br = new WPI_TalonFX(Constants.BACK_RIGHT_MODULE_STEER_MOTOR);
+turn_fl = new WPI_TalonFX(Constants.FRONT_LEFT_MODULE_STEER_MOTOR);
+turn_fr = new WPI_TalonFX(Constants.FRONT_RIGHT_MODULE_STEER_MOTOR);
+motor_bl.setNeutralMode(NeutralMode.Brake);
+motor_br.setNeutralMode(NeutralMode.Brake);
+motor_fl.setNeutralMode(NeutralMode.Brake);
+motor_fr.setNeutralMode(NeutralMode.Brake);
+turn_bl.setNeutralMode(NeutralMode.Brake);
+turn_br.setNeutralMode(NeutralMode.Brake);
+turn_fl.setNeutralMode(NeutralMode.Brake);
+turn_fr.setNeutralMode(NeutralMode.Brake);
+fl.setPositionToAbsolute();
+fr.setPositionToAbsolute();
+bl.setPositionToAbsolute();
+br.setPositionToAbsolute();
+
+m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
           
             // This can either be STANDARD or FAST depending on your gear configuration
@@ -173,6 +186,7 @@ motor_fr.setNeutralMode(NeutralMode.Coast);
 
     // FIXME Uncomment if you are using a NavX
    m_navx.zeroYaw();
+   
   }
 
   public Rotation2d getGyroscopeRotation() {
@@ -214,6 +228,7 @@ motor_fr.setNeutralMode(NeutralMode.Coast);
     SmartDashboard.putNumber("Bottom Left Cancoder", bl.getAbsolutePosition());
     SmartDashboard.putNumber("Bottom Right Cancoder", br.getAbsolutePosition());
     SmartDashboard.putNumber("Gyro Angle", getGyroscopeRotation().getDegrees());
+    
     SmartDashboard.updateValues();
 }
 }

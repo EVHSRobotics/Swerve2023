@@ -24,11 +24,16 @@ public class DriveSDS extends CommandBase {
     public void execute() {
         // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
         m_drivetrainSubsystem.drive(
-                ChassisSpeeds.fromFieldRelativeSpeeds(
+                // ChassisSpeeds.fromFieldRelativeSpeeds(
+                //     ((Math.abs(controller.getLeftY()) > 0.1) ? controller.getLeftY() : 0) * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                //     ((Math.abs(controller.getLeftX()) > 0.1) ? controller.getLeftX() : 0) * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
+                //     ((Math.abs(controller.getRightX()) > 0.1) ? controller.getRightX() : 0) * DrivetrainSDS.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
+                //     m_drivetrainSubsystem.getGyroscopeRotation()
+                // )
+                new ChassisSpeeds(
                     ((Math.abs(controller.getLeftY()) > 0.1) ? controller.getLeftY() : 0) * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
                     ((Math.abs(controller.getLeftX()) > 0.1) ? controller.getLeftX() : 0) * DrivetrainSDS.MAX_VELOCITY_METERS_PER_SECOND,
-                    ((Math.abs(controller.getRightX()) > 0.1) ? controller.getRightX() : 0) * DrivetrainSDS.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
-                    m_drivetrainSubsystem.getGyroscopeRotation()
+                    ((Math.abs(controller.getRightX()) > 0.1) ? controller.getRightX() : 0) * DrivetrainSDS.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
                 )
         );
     }

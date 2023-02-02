@@ -28,7 +28,7 @@ public class Drivetrain {
 
   private final AHRS m_gyro = new AHRS(SerialPort.Port.kUSB);
 
-  private final SwerveDriveKinematics m_kinematics =
+  private final SwerveDriveKinematics m_kinematics = 
       new SwerveDriveKinematics(
           m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
 
